@@ -40,7 +40,17 @@ class UserMapManager(models.Manager):
                 # e.g. vgarvardt@gmail.com -> vgarvardt
                 loginza_nickname = loginza_data.get('nickname', None)
                 username = loginza_nickname if loginza_nickname is not None else email.split('@')[0]
-
+                name = loginza_data.get('name')
+                first_name = name.get('first_name', None)
+                last_name = name.get('last_name', None)
+                full_name = name.get('full_name', None)
+                # Try to use first_name/last_name if username is none
+                if full_name is not None:
+                    if (first_name is None) and (last_name is None):
+                        try:
+                            first_name, last_name = full_name.split(' ')[:2]
+                        except:
+                            pass
                 # check duplicate user name
                 while True:
                     try:
@@ -49,10 +59,12 @@ class UserMapManager(models.Manager):
                     except User.DoesNotExist:
                         break
 
-                user = User.objects.create_user(
-                    username,
-                    email
-                )
+                user = User.objects.create_user(username, email)
+                if first_name is not None:
+                    user.first_name = first_name
+                if last_name is not None:
+                    user.last_name = last_name
+                user.save()
             user_map = UserMap.objects.create(identity=identity, user=user)
             signals.created.send(request, user_map=user_map)
         return user_map
