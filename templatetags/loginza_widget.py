@@ -89,7 +89,7 @@ style="width:359px;height:300px;" scrolling="no" frameborder="no"></iframe>""" %
 
 def button_template(kwargs, caption):
     return """<script src="http://loginza.ru/js/widget.js" type="text/javascript"></script>
-<a href="http://loginza.ru/api/widget?%(providers)slang=%(lang)s&token_url=%(return-url)s" class="loginza">
+<a href="http://loginza.ru/api/widget?%(providers)slang=%(lang)s&token_url=%(return-url)s" rel="nofollow" class="loginza">
     <img src="%(button-img)s" alt="%(caption)s" title="%(caption)s"/>
 </a>""" % {
         'button-img': settings.BUTTON_IMG_URL,
@@ -127,7 +127,7 @@ def icons_template(kwargs, caption):
 
     return """<script src="http://loginza.ru/js/widget.js" type="text/javascript"></script>
 %(caption)s
-<a href="https://loginza.ru/api/widget?%(providers)slang=%(lang)s&token_url=%(return-url)s" class="loginza">
+<a href="https://loginza.ru/api/widget?%(providers)slang=%(lang)s&token_url=%(return-url)s" rel="nofollow" class="loginza">
     %(icons)s
 </a>""" % {
         'return-url': return_url(),
@@ -140,7 +140,7 @@ def icons_template(kwargs, caption):
 
 def string_template(kwargs, caption):
     return """<script src="http://loginza.ru/js/widget.js" type="text/javascript"></script>
-<a href="http://loginza.ru/api/widget?%(providers)slang=%(lang)s&token_url=%(return-url)s" class="loginza">
+<a href="http://loginza.ru/api/widget?%(providers)slang=%(lang)s&token_url=%(return-url)s" rel="nofollow" class="loginza">
     %(caption)s
 </a>""" % {
         'return-url': return_url(),
